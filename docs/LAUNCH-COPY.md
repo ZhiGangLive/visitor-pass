@@ -4,6 +4,10 @@
 
 发布顺序建议：GitHub → V2EX + 掘金（同一天）→ 知乎 → 公众号 → 短视频。每一步间隔 2–3 天。
 
+> 要发**图文**而不是视频，见 **[GALLERY.md](GALLERY.md)**：
+> 视频已拆成 13 张单图（小红书 3:4、抖音/视频号 9:16、文章 16:9 各一套），
+> 配套小红书、抖音、视频号三套图文文案。
+
 通用素材：
 - 横版视频 `docs/video/visitor-pass-demo.mp4`（B 站、公众号、知乎）
 - 竖版视频 `docs/video/visitor-pass-demo-vertical.mp4`（抖音、小红书、视频号）
