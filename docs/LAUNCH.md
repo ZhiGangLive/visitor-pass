@@ -27,6 +27,9 @@
 
 ## 二、平台文案
 
+> **成品在 [LAUNCH-COPY.md](LAUNCH-COPY.md)**：V2EX、掘金、知乎、公众号、小红书、B 站六套可直接复制粘贴的定稿（含标题、正文、配图顺序、标签）。
+> 本节保留的是策略与草稿，改的时候以 COPY 那份为准。
+
 ### 1. GitHub Release（v2.0.0）
 
 **标题：** `v2.0.0 — 不是审批，是邀请`
@@ -199,8 +202,10 @@ https://github.com/ZhiGangLive/visitor-pass
 
 | 用途 | 文件 | 尺寸 | 说明 |
 |---|---|---|---|
-| 演示视频 | `docs/video/visitor-pass-demo.mp4` | 1920×1080 / 57s | 已生成，1.6 MB，字幕已烧录，无音轨 |
+| 演示视频（横版） | `docs/video/visitor-pass-demo.mp4` | 1920×1080 / 57s | 已生成，1.6 MB，字幕已烧录，无音轨 |
+| 演示视频（竖版） | `docs/video/visitor-pass-demo-vertical.mp4` | 1080×1920 / 57s | 已生成，1.3 MB，时间轴与横版一致 |
 | 视频字幕 | `docs/video/visitor-pass-demo.srt` | — | 需要改旁白或配音时用 |
+| 旁白稿 | `docs/video/narration.md` | — | 逐句时间轴 + 语速标注 + 纯文本提词版 |
 | 视频封面 | `docs/video/poster.png` | 1920×1080 | 视频平台首帧/封面 |
 | GitHub 社交预览 | `docs/social/og-cover.png` | 1200×630 | 仓库 Settings → Social preview 上传 |
 | 小红书封面 | `docs/social/quote-card.png` | 1080×1350 | 金句卡，可复用为朋友圈图 |
@@ -212,10 +217,10 @@ https://github.com/ZhiGangLive/visitor-pass
 
 成片是**静音**的，这是故意的——平台对 BGM 的偏好不同，硬塞一首曲子会限制复用。建议：
 
-1. 打开剪映 → 导入 `visitor-pass-demo.mp4`
+1. 打开剪映 → 导入对应版本的 mp4（B 站/公众号用横版，抖音/小红书/视频号用竖版）
 2. 加一首低频、克制的背景乐（音量压到 -22 dB 以下，不要盖住节奏）
-3. 需要竖版：新建 1080×1920 工程，把横版素材等比缩放居中，上下补同色底 + 大字标题
-4. 需要真人旁白：导入 `.srt` 作为提词，按分镜念即可
+3. 需要真人旁白：按 [narration.md](video/narration.md) 的时间轴录，或直接导入 `.srt` 当提词
+4. 竖版底部 400px 是平台按钮区，字幕已经避开了，不要再往下加元素
 
 ---
 
