@@ -199,11 +199,23 @@ https://github.com/ZhiGangLive/visitor-pass
 
 | 用途 | 文件 | 尺寸 | 说明 |
 |---|---|---|---|
+| 演示视频 | `docs/video/visitor-pass-demo.mp4` | 1920×1080 / 57s | 已生成，1.6 MB，字幕已烧录，无音轨 |
+| 视频字幕 | `docs/video/visitor-pass-demo.srt` | — | 需要改旁白或配音时用 |
+| 视频封面 | `docs/video/poster.png` | 1920×1080 | 视频平台首帧/封面 |
 | GitHub 社交预览 | `docs/social/og-cover.png` | 1200×630 | 仓库 Settings → Social preview 上传 |
 | 小红书封面 | `docs/social/quote-card.png` | 1080×1350 | 金句卡，可复用为朋友圈图 |
 | 文章头图 | `docs/screenshots/03-invite.png` | 2880×1800 | 已生成 |
 | 四卡面对比 | `docs/screenshots/03-invite.png` 裁剪 | — | 或用界面里的四种缩略图 |
 | 门岗端演示 | `docs/screenshots/09-guard.png` | 2880×1800 | 已生成 |
+
+### 视频的二次加工
+
+成片是**静音**的，这是故意的——平台对 BGM 的偏好不同，硬塞一首曲子会限制复用。建议：
+
+1. 打开剪映 → 导入 `visitor-pass-demo.mp4`
+2. 加一首低频、克制的背景乐（音量压到 -22 dB 以下，不要盖住节奏）
+3. 需要竖版：新建 1080×1920 工程，把横版素材等比缩放居中，上下补同色底 + 大字标题
+4. 需要真人旁白：导入 `.srt` 作为提词，按分镜念即可
 
 ---
 
