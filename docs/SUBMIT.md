@@ -34,7 +34,6 @@
 
 ### 正文（可直接粘贴，约 1200 字）
 
-```markdown
 公司访客登记一直用纸质本。行政嫌乱，保安嫌烦，访客嫌像审问。
 
 更别扭的是流程本身：访客填表申请、员工点通过、保安在门口盘问。
@@ -131,8 +130,11 @@ fs.renameSync(TMP_FILE, DB_FILE);
 
 仓库：https://github.com/bulusiLive/visitor-pass
 
-#WorkBuddy
-```
+\#WorkBuddy
+
+---
+
+> 以上为正文。从「公司访客登记一直用纸质本」开始全选复制即可。
 
 ### 配图（选 3–5 张，按顺序）
 
