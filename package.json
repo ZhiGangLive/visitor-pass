@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "check": "node --check server.js && node --check lib/store.js && node --check lib/auth.js && node --check lib/org.js && node --check lib/rooms.js && node --check lib/invite.js && node --check lib/audit.js && node --check lib/seed.js && node --check public/assets/app.js"
+    "smoke": "node scripts/smoke.js",
+    "check": "node --check server.js && node --check lib/store.js && node --check lib/auth.js && node --check lib/org.js && node --check lib/rooms.js && node --check lib/invite.js && node --check lib/audit.js && node --check lib/seed.js && node --check scripts/smoke.js && node --check public/assets/app.js"
   },
   "keywords": [
     "visitor-management",

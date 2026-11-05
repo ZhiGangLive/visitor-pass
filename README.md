@@ -7,6 +7,7 @@
 一个零依赖、可离线运行的访客邀请与门岗核验系统。
 Node 16+，`node server.js` 就能跑，不需要 `npm install`，不需要数据库，不需要联网。
 
+[![CI](https://github.com/ZhiGangLive/visitor-pass/actions/workflows/ci.yml/badge.svg)](https://github.com/ZhiGangLive/visitor-pass/actions/workflows/ci.yml)
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A5%2016-brightgreen.svg)](https://nodejs.org)
 [![Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)](#技术架构)
@@ -109,7 +110,7 @@ node server.js
 | 管理端 | `http://IP:8080/` | 员工发邀请、行政查台账、管理员配权限 |
 | 门岗端 | `http://IP:8080/guard` | 保安，只有「一个输入框 + 台账」 |
 
-环境变量：`PORT`（默认 8080）、`HOST`（默认 0.0.0.0）。
+环境变量：`PORT`（默认 8080）、`HOST`（默认 0.0.0.0）、`DATA_DIR`（默认 `./data`，可指向独立磁盘）。
 
 **初始账号**（首次启动自动写入，正式使用前必须改密码）：
 
@@ -188,6 +189,8 @@ lib/seed.js           首次启动初始化
 public/index.html     管理端外壳
 public/assets/app.js  管理端全部页面逻辑
 public/guard.html     门岗端（独立页面，自带样式与脚本）
+public/assets/vendor/ 内置 qrcode.js（MIT）
+scripts/smoke.js      冒烟测试：真起服务，走完整链路，不碰 data/
 data/db.json          全部业务数据（已在 .gitignore 中排除）
 ```
 

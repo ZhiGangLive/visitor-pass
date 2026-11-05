@@ -173,6 +173,20 @@ cp data/db.json /backup/visitor-$(date +%F).json
 
 **建议再加一层异地备份**：把这台机器的 `data/` 目录同步到 NAS 或另一台电脑。访客台账是行政和安监都要查的东西，丢一次很麻烦。
 
+### 把数据放到独立磁盘
+
+默认数据在代码目录下的 `data/`。如果代码装在系统盘、数据想放数据盘：
+
+```bash
+# Linux / macOS
+DATA_DIR=/data/visitor-pass node server.js
+
+# Windows（服务方式）
+nssm set VisitorPass AppEnvironmentExtra DATA_DIR=D:\visitor-data
+```
+
+`DATA_DIR` 支持绝对路径，也支持相对当前工作目录的路径。多个实例共用一个二进制时，用它隔离各自的数据。
+
 ---
 
 ## 五、升级
