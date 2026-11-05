@@ -19,7 +19,7 @@ Node 16+，`node server.js` 就能跑，不需要 `npm install`，不需要数�
 ![发起邀请与卡面预览](docs/screenshots/03-invite.png)
 
 ▶ **[57 秒演示视频](docs/video/visitor-pass-demo.mp4)**（横版 1920×1080 ｜ [竖版 1080×1920](docs/video/visitor-pass-demo-vertical.mp4)）
-无配音，字幕已烧录，可直接加 BGM 二次剪辑。字幕轨见 [.srt](docs/video/visitor-pass-demo.srt)，旁白稿见 [narration.md](docs/video/narration.md)。
+无配音，字幕已烧录，可直接加 BGM 二次剪辑。字幕轨见 [.srt](docs/video/visitor-pass-demo.srt)；如后续要加真人配音，[narration.md](docs/video/narration.md) 里有对好时间轴的稿子。
 
 ---
 
