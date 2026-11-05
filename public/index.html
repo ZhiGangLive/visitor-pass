@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23C9A961'/%3E%3Cpath d='M16 8l2.2 5.6L24 16l-5.8 2.4L16 24l-2.2-5.6L8 16l5.8-2.4z' fill='%23120E04'/%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#060910">
+<meta name="format-detection" content="telephone=no">
+<title>访客通行管理 · 星河科技</title>
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.6"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 016.5 3H20v16H6.5A2.5 2.5 0 004 21.5z"/><path d="M4 5.5v16"/></symbol>
+  <symbol id="i-org" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1.2"/><rect x="2.5" y="16" width="6" height="5" rx="1.2"/><rect x="15.5" y="16" width="6" height="5" rx="1.2"/><path d="M12 8v4M5.5 16v-2h13v2"/></symbol>
+  <symbol id="i-room" viewBox="0 0 24 24"><path d="M3 21h18M5 21V6l7-3 7 3v15"/><path d="M9 21v-5h6v5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.1 8.2-7.5 9.5-4.4-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-log" viewBox="0 0 24 24"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="8.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M8 11l4 4 4-4M5 19h14"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 10-2.3 5.7"/><path d="M20 5v6h-6"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M15 4h4a1 1 0 011 1v14a1 1 0 01-1 1h-4"/><path d="M10 8l-4 4 4 4M6 12h9"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="10" rx="2.4"/><path d="M8 10V7.5a4 4 0 018 0V10"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M2.8 20c0-3.4 2.8-5.6 6.2-5.6s6.2 2.2 6.2 5.6"/><path d="M16.5 5.2a3.4 3.4 0 010 6.5M18 14.6c2 .6 3.4 2.3 3.4 4.6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/></symbol>
+</svg>
+
+<!-- ==================== 登录 ==================== -->
+<div class="login" id="loginView" hidden>
+  <div class="login-side">
+    <div class="brand">
+      <div class="mark">星</div>
+      <div>
+        <b>星河科技</b>
+        <small>STARLIGHT VISITOR SYSTEM</small>
+      </div>
+    </div>
+    <h1>让每一次来访<br>都<em>有据可查</em></h1>
+    <p class="desc">邀请、核验、台账、权限，一条链路走完。<br>访客不用装 App，门岗不用换设备，行政不用登 Excel。</p>
+
+    <div class="flow">
+      <div class="flow-step"><i>01</i><b>发起邀请</b><span>填 4 项信息，10 秒生成</span></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><i>02</i><b>复制图片</b><span>直接粘进微信发送</span></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><i>03</i><b>门岗扫码</b><span>扫码枪或 4 位邀请码</span></div>
+      <div class="flow-arrow"></div>
+      <div class="flow-step"><i>04</i><b>自动台账</b><span>谁进来过，一查就有</span></div>
+    </div>
+    <div class="login-feats">
+      <div class="login-feat">
+        <div class="ic"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-copy"/></svg></div>
+        <div><b>邀请卡一键复制</b><p>生成后直接进剪贴板，微信里 Ctrl+V 就能发</p></div>
+      </div>
+      <div class="login-feat">
+        <div class="ic"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-shield"/></svg></div>
+        <div><b>权限落到每个角色</b><p>员工只看自己，主管看本部门，管理员看全部</p></div>
+      </div>
+      <div class="login-feat">
+        <div class="ic"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-book"/></svg></div>
+        <div><b>门岗一框到底</b><p>扫码枪和手输共用同一个输入框，下面就是台账</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-main">
+    <form class="login-card" id="loginForm" autocomplete="on">
+      <h2>登录</h2>
+      <p class="sub">使用公司分配的账号进入访客通行管理系统</p>
+      <div class="field">
+        <label>账号</label>
+        <input class="input" id="loginUser" name="username" autocomplete="username" placeholder="例如 admin" required>
+      </div>
+      <div class="field">
+        <label>密码</label>
+        <input class="input" id="loginPass" name="password" type="password" autocomplete="current-password" placeholder="请输入密码" required>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 18px">
+        <label class="check"><input type="checkbox" id="loginRemember" checked> 30 天内免登录</label>
+        <span style="font-size:11px;color:var(--txt-3)">忘记密码请联系管理员</span>
+      </div>
+      <button class="btn primary block lg" id="loginBtn" type="submit">进入系统</button>
+      <div class="err-line" id="loginErr" hidden></div>
+
+      <div class="demo-box">
+        <div class="h">演 示 账 号 · 上 线 前 请 删 除</div>
+        <div class="demo-accounts" id="demoAccounts"></div>
+      </div>
+      <div class="login-foot">
+        本系统仅限内部使用，所有操作均记录日志<br>
+        保安终端请访问 <span class="mono">/guard</span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== 主应用 ==================== -->
+<div class="shell" id="appView" hidden>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="mark">星</div>
+      <div>
+        <b>访客通行</b>
+        <small id="orgTag">STARLIGHT</small>
+      </div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-user">
+      <div class="avatar" id="sideAvatar">—</div>
+      <div class="meta">
+        <b id="sideName">—</b>
+        <small id="sideRole">—</small>
+      </div>
+      <button class="icon-btn" id="btnLogout" title="退出登录">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-out"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="hamburger" id="btnMenu" aria-label="菜单">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><use href="#i-menu"/></svg>
+      </button>
+      <div class="titles">
+        <h1 id="pageTitle">工作台</h1>
+        <div class="sub" id="pageSub">—</div>
+      </div>
+      <div class="right" id="topActions"></div>
+    </header>
+    <div class="content" id="view"></div>
+  </div>
+</div>
+
+<div id="modalRoot"></div>
+<div id="drawerRoot"></div>
+<div class="toast" id="toast"></div>
+
+<script src="/assets/vendor/qrcode.js"></script>
+<script src="/assets/app.js"></script>
+</body>
+</html>

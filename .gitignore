@@ -1,0 +1,25 @@
+# 业务数据：含真实访客姓名、手机号、邀请记录，绝不入库
+data/
+
+# 依赖（本项目为零依赖，保留以防有人本地装工具）
+node_modules/
+package-lock.json
+
+# 日志与临时文件
+*.log
+npm-debug.log*
+db.json.tmp
+*.broken-*
+*.bak
+
+# 编辑器与系统
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 本地部署产物
+*.service
+*.exe
+dist/

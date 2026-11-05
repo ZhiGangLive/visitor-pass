@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  :root{
+    --gold:#C9A961;
+    --gold-lt:#E7C888;
+    --bg0:#05070C;
+    --bg1:#121722;
+    --txt:#F2EDE3;
+    --dim:#8A93A3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#000;font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .card{position:relative;overflow:hidden;background:
+      radial-gradient(1200px 700px at 82% -10%, rgba(201,169,97,.16), transparent 60%),
+      radial-gradient(900px 600px at -10% 110%, rgba(90,110,150,.14), transparent 60%),
+      linear-gradient(160deg,var(--bg1) 0%,var(--bg0) 62%);
+    color:var(--txt)}
+  .frame{position:absolute;inset:34px;border:1px solid rgba(201,169,97,.22)}
+  .corner{position:absolute;width:14px;height:14px;border:1px solid rgba(201,169,97,.55)}
+  .corner.tl{top:34px;left:34px;border-right:0;border-bottom:0}
+  .corner.tr{top:34px;right:34px;border-left:0;border-bottom:0}
+  .corner.bl{bottom:34px;left:34px;border-right:0;border-top:0}
+  .corner.br{bottom:34px;right:34px;border-left:0;border-top:0}
+
+  /* ---------- OG 1200x630 ---------- */
+  #og{width:1200px;height:630px;padding:78px 84px;display:flex;flex-direction:column;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:14px}
+  .mark{width:46px;height:46px;border-radius:11px;background:linear-gradient(150deg,#E7C888,#B8944A);
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .brand b{font-size:20px;letter-spacing:.06em;font-weight:600}
+  .brand small{display:block;font-size:10.5px;letter-spacing:.24em;color:var(--dim);margin-top:3px}
+  .og-main h1{font-size:88px;line-height:1.16;font-weight:700;letter-spacing:.01em}
+  .og-main h1 em{font-style:normal;color:var(--gold-lt)}
+  .og-main p{margin-top:22px;font-size:24px;color:#A8B0BE;letter-spacing:.02em}
+  .og-foot{display:flex;align-items:center;justify-content:space-between;
+    border-top:1px solid rgba(201,169,97,.18);padding-top:22px}
+  .og-foot span{font-size:16px;letter-spacing:.14em;color:#7C8595}
+  .og-foot .repo{color:var(--gold);letter-spacing:.06em;font-size:17px}
+
+  /* ---------- 1080x1350 ---------- */
+  #quote{width:1080px;height:1350px;padding:110px 104px;display:flex;flex-direction:column;justify-content:space-between}
+  #quote .top{display:flex;align-items:center;gap:13px}
+  #quote .top b{font-size:16px;letter-spacing:.28em;color:#9AA3B2;font-weight:500}
+  #quote .quote{font-size:104px;line-height:1.32;font-weight:600;letter-spacing:.01em}
+  #quote .quote .g{color:var(--gold-lt)}
+  #quote .rule{width:88px;height:2px;background:var(--gold);margin:46px 0 34px;opacity:.8}
+  #quote .sub{font-size:33px;line-height:1.75;color:#A5ADBB;letter-spacing:.02em}
+  #quote .foot{display:flex;align-items:flex-end;justify-content:space-between;
+    border-top:1px solid rgba(201,169,97,.18);padding-top:28px}
+  #quote .foot .l b{display:block;font-size:24px;letter-spacing:.06em}
+  #quote .foot .l small{display:block;font-size:13px;letter-spacing:.22em;color:#6F7787;margin-top:8px}
+  #quote .foot .r{font-size:16px;color:var(--gold);letter-spacing:.1em}
+</style>
+</head>
+<body>
+
+<!-- 社交分享封面 1200x630 -->
+<div class="card" id="og">
+  <div class="frame"></div>
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+
+  <div class="brand">
+    <div class="mark">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#120E04">
+        <path d="M12 2.6l2.1 6.3 6.3 2.1-6.3 2.1L12 19.4l-2.1-6.3L3.6 11l6.3-2.1z"/>
+      </svg>
+    </div>
+    <div>
+      <b>访客通行</b>
+      <small>VISITOR PASS</small>
+    </div>
+  </div>
+
+  <div class="og-main">
+    <h1>不是审批，<br><em>是邀请。</em></h1>
+    <p>零依赖 · 可离线运行的访客邀请与门岗核验系统</p>
+  </div>
+
+  <div class="og-foot">
+    <span>NODE 16+ &nbsp;·&nbsp; 0 DEPENDENCIES &nbsp;·&nbsp; AGPL-3.0</span>
+    <span class="repo">github.com/ZhiGangLive/visitor-pass</span>
+  </div>
+</div>
+
+<!-- 金句卡 1080x1350 -->
+<div class="card" id="quote">
+  <div class="frame"></div>
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+
+  <div class="top">
+    <div class="mark" style="width:38px;height:38px;border-radius:9px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#120E04">
+        <path d="M12 2.6l2.1 6.3 6.3 2.1-6.3 2.1L12 19.4l-2.1-6.3L3.6 11l6.3-2.1z"/>
+      </svg>
+    </div>
+    <b>访 客 通 行</b>
+  </div>
+
+  <div>
+    <div class="quote">
+      你邀请我来，<br>
+      我就被当作<br>
+      <span class="g">客人对待。</span>
+    </div>
+    <div class="rule"></div>
+    <div class="sub">不论我是你的客户、供应商，<br>还是对手。</div>
+  </div>
+
+  <div class="foot">
+    <div class="l">
+      <b>访客通行 · Visitor Pass</b>
+      <small>OPEN SOURCE · AGPL-3.0</small>
+    </div>
+    <div class="r">不是审批，是邀请。</div>
+  </div>
+</div>
+
+</body>
+</html>

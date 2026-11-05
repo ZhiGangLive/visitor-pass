@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23C9A961'/%3E%3Cpath d='M16 8l2.2 5.6L24 16l-5.8 2.4L16 24l-2.2-5.6L8 16l5.8-2.4z' fill='%23120E04'/%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#060910">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>门岗核验 · 访客通行</title>
+<style>
+  :root{
+    color-scheme:dark;
+    --bg:#060910; --panel:#0B111C; --line:rgba(255,255,255,.075);
+    --gold:#C9A961; --gold-lt:#E8D5A0;
+    --txt:#EDF1F7; --txt-2:#96A2B8; --txt-3:#636E85;
+    --ok:#34D07F; --deny:#E85C5C;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  [hidden]{display:none !important}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);color:var(--txt);min-height:100vh;
+    font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(900px 560px at 50% -14%, rgba(201,169,97,.07), transparent 62%);
+  }
+  button,input{font-family:inherit;font-size:inherit;color:inherit}
+  button{border:0;background:none;cursor:pointer}
+
+  /* ================= 登录 ================= */
+  .login{min-height:100vh;display:grid;place-items:center;padding:24px}
+  .login-card{width:100%;max-width:360px}
+  .login-card .mark{
+    width:52px;height:52px;border-radius:14px;display:grid;place-items:center;
+    background:linear-gradient(140deg,#E8D5A0,#9C7C3C);color:#150F03;
+    font-size:24px;font-weight:800;font-family:'Songti SC',SimSun,serif;margin-bottom:20px;
+  }
+  .login-card h1{font-size:24px;margin:0 0 6px;font-weight:600}
+  .login-card p{margin:0 0 26px;font-size:12.5px;color:var(--txt-3);line-height:1.8}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:11.5px;color:var(--txt-3);margin-bottom:7px}
+  .input{
+    width:100%;height:46px;border-radius:10px;border:1px solid var(--line);
+    background:rgba(255,255,255,.03);padding:0 14px;outline:none;transition:all .16s;
+  }
+  .input:focus{border-color:rgba(201,169,97,.55);background:rgba(201,169,97,.05)}
+  .btn{
+    height:46px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid var(--line);
+    font-size:14px;padding:0 20px;transition:all .16s;
+  }
+  .btn.primary{
+    width:100%;background:linear-gradient(135deg,#E8D5A0,#C9A961 48%,#A8873F);
+    color:#1A1206;font-weight:600;border:0;box-shadow:0 12px 26px -14px rgba(201,169,97,.95);
+  }
+  .err{color:#F3A3A3;font-size:12px;margin-top:12px;line-height:1.6;min-height:18px}
+
+  /* ================= 终端 ================= */
+  .term{min-height:100vh;display:flex;flex-direction:column;max-width:1240px;margin:0 auto;
+    padding:calc(14px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom))}
+  .bar{display:flex;align-items:center;gap:11px;flex:0 0 auto;padding:2px 2px 16px}
+  .bar .mark{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+    background:linear-gradient(140deg,#E8D5A0,#9C7C3C);color:#150F03;font-size:16px;font-weight:800;
+    font-family:'Songti SC',SimSun,serif;flex:0 0 auto}
+  .bar b{font-size:14.5px;font-weight:600;letter-spacing:.02em}
+  .bar small{display:block;font-size:10.5px;color:var(--txt-3);margin-top:2px;letter-spacing:.06em}
+  .bar .right{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .who{font-size:11.5px;color:var(--txt-3)}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px rgba(52,208,127,.9)}
+  .dot.off{background:var(--deny);box-shadow:0 0 10px rgba(232,92,92,.9)}
+  .ghost{font-size:11.5px;color:var(--txt-3);border:1px solid var(--line);border-radius:100px;padding:7px 13px}
+  .ghost:hover{color:var(--txt)}
+
+  /* 第一行：输入 */
+  .entry{flex:0 0 auto;margin-bottom:18px}
+  .entry-box{
+    display:flex;align-items:center;gap:9px;padding:9px 9px 9px 18px;border-radius:16px;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.022));
+    border:1px solid rgba(201,169,97,.28);
+    box-shadow:0 18px 50px -30px rgba(201,169,97,.6), inset 0 0 0 1px rgba(255,255,255,.02);
+    transition:all .18s;
+  }
+  .entry-box:focus-within{border-color:rgba(201,169,97,.62);box-shadow:0 0 0 4px rgba(201,169,97,.08),0 18px 50px -30px rgba(201,169,97,.8)}
+  .entry-box .ic{color:var(--gold);flex:0 0 auto;display:grid;place-items:center}
+  #scanInput{
+    flex:1;min-width:0;height:52px;border:0;background:transparent;outline:none;
+    font-size:17px;letter-spacing:.02em;
+  }
+  #scanInput::placeholder{color:#525D75;font-size:14.5px}
+  #btnVerify{
+    flex:0 0 auto;height:50px;padding:0 28px;border-radius:12px;
+    background:linear-gradient(135deg,#E8D5A0,#C9A961 48%,#A8873F);
+    color:#1A1206;font-weight:700;font-size:15px;letter-spacing:.08em;
+    box-shadow:0 10px 24px -14px rgba(201,169,97,.95);
+  }
+  #btnVerify:disabled{opacity:.6}
+  .entry-hint{display:flex;gap:14px;align-items:center;padding:10px 6px 0;font-size:11.5px;color:var(--txt-3)}
+  .entry-hint .spacer{flex:1}
+  .entry-hint b{color:rgba(201,169,97,.85);font-weight:500}
+  .entry-hint .clock{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:var(--txt-3)}
+
+  /* 台账 */
+  .ledger{flex:1;min-height:0;display:flex;flex-direction:column;border-radius:16px;
+    border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.026),rgba(255,255,255,.008));overflow:hidden}
+  .lg-head{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);flex:0 0 auto}
+  .lg-head h2{margin:0;font-size:13.5px;font-weight:600}
+  .lg-head .cnt{font-size:11.5px;color:var(--txt-3)}
+  .lg-head .cnt b{color:var(--gold-lt);font-weight:600;font-variant-numeric:tabular-nums}
+  .lg-head .spacer{flex:1}
+  .tabs{display:inline-flex;padding:3px;border-radius:9px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+  .tabs button{padding:6px 13px;border-radius:7px;font-size:11.5px;color:var(--txt-3)}
+  .tabs button.on{background:rgba(201,169,97,.16);color:var(--gold-lt);font-weight:600}
+
+  .lg-wrap{flex:1;min-height:0;overflow:auto}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th{position:sticky;top:0;z-index:2;text-align:left;font-weight:500;font-size:10.5px;color:var(--txt-3);
+    letter-spacing:.1em;padding:10px 16px;background:#0A0F19;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.045);vertical-align:middle}
+  tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:rgba(255,255,255,.022)}
+  .t{font-family:ui-monospace,'SF Mono',Consolas,monospace;color:var(--gold);font-size:13px;font-variant-numeric:tabular-nums}
+  .n{font-weight:600;font-size:12.5px;white-space:nowrap}
+  .sub{font-size:11px;color:var(--txt-3);margin-top:2px}
+  .badge{display:inline-flex;align-items:center;gap:5px;height:21px;padding:0 8px;border-radius:100px;
+    font-size:10.5px;border:1px solid transparent;white-space:nowrap}
+  .badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
+  .badge.in{color:#6FE3A5;background:rgba(52,208,127,.09);border-color:rgba(52,208,127,.22)}
+  .badge.re{color:#8FB6F5;background:rgba(91,141,239,.09);border-color:rgba(91,141,239,.22)}
+  .badge.dup{color:#93A0B6;background:rgba(147,160,182,.07);border-color:rgba(147,160,182,.16)}
+  .badge.deny{color:#F0A0A0;background:rgba(232,92,92,.09);border-color:rgba(232,92,92,.22)}
+  tr.fresh{animation:fresh 2.4s ease}
+  @keyframes fresh{0%{background:rgba(52,208,127,.16)}100%{background:transparent}}
+  .empty{padding:60px 20px;text-align:center;color:var(--txt-3);font-size:12.5px;line-height:2}
+  .empty b{display:block;color:var(--txt-2);font-size:14px;margin-bottom:6px;font-weight:500}
+
+  /* 核验提醒：浮动卡片，不遮挡全屏 */
+  .notice{
+    position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));
+    transform:translate(-50%,14px);z-index:60;
+    width:min(460px,calc(100vw - 28px));
+    opacity:0;pointer-events:none;
+    transition:opacity .18s ease,transform .24s cubic-bezier(.2,.8,.3,1);
+  }
+  .notice.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+  .notice-card{
+    position:relative;display:flex;align-items:flex-start;gap:13px;
+    padding:15px 16px 17px;border-radius:15px;overflow:hidden;
+    background:rgba(12,18,28,.97);border:1px solid var(--line);
+    box-shadow:0 28px 70px -24px rgba(0,0,0,.95);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    animation:noticeIn .24s cubic-bezier(.16,1,.3,1);
+  }
+  @keyframes noticeIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+  .notice.pass .notice-card{border-color:rgba(52,208,127,.4);background:linear-gradient(180deg,rgba(14,44,32,.98),rgba(8,21,16,.98))}
+  .notice.deny .notice-card{border-color:rgba(232,92,92,.42);background:linear-gradient(180deg,rgba(46,18,18,.98),rgba(22,9,9,.98))}
+
+  .notice-icon{
+    width:42px;height:42px;border-radius:12px;flex:0 0 auto;
+    display:grid;place-items:center;font-size:21px;font-weight:700;line-height:1;
+  }
+  .notice.pass .notice-icon{color:#5BF0A2;background:rgba(52,208,127,.14);border:1px solid rgba(52,208,127,.35)}
+  .notice.deny .notice-icon{color:#FF9B9B;background:rgba(232,92,92,.14);border:1px solid rgba(232,92,92,.38)}
+
+  .notice-body{flex:1;min-width:0;padding-top:1px}
+  .notice-title{font-size:16px;font-weight:600;letter-spacing:.04em}
+  .notice.pass .notice-title{color:#8FF0BB}
+  .notice.deny .notice-title{color:#F5A3A3}
+  .notice-name{font-size:15px;color:#EAF0F8;font-weight:600;margin-top:5px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .notice-desc{font-size:12.5px;color:rgba(220,228,240,.78);line-height:1.7;margin-top:4px}
+  .notice-hint{font-size:11.5px;color:rgba(200,210,226,.55);line-height:1.6;margin-top:3px}
+
+  .notice-x{
+    width:26px;height:26px;border-radius:7px;flex:0 0 auto;display:grid;place-items:center;
+    color:rgba(255,255,255,.35);font-size:12px;
+  }
+  .notice-x:hover{background:rgba(255,255,255,.08);color:#fff}
+
+  .notice-bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.06)}
+  .notice-bar i{display:block;height:100%;width:100%;transform-origin:left;background:currentColor}
+  .notice.pass .notice-bar i{color:rgba(52,208,127,.85)}
+  .notice.deny .notice-bar i{color:rgba(232,92,92,.85)}
+  @keyframes noticeShrink{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+
+  .toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,12px);z-index:80;
+    background:rgba(16,23,36,.98);border:1px solid rgba(201,169,97,.3);color:var(--gold-lt);
+    font-size:12px;padding:10px 18px;border-radius:100px;opacity:0;pointer-events:none;transition:all .26s;
+    max-width:86%;text-align:center;line-height:1.6}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+
+  @media (max-width:720px){
+    .term{padding:calc(12px + env(safe-area-inset-top)) 12px calc(14px + env(safe-area-inset-bottom))}
+    .bar{padding-bottom:12px}
+    .bar small{display:none}
+    .who{display:none}
+    #scanInput{height:46px;font-size:16px}
+    #scanInput::placeholder{font-size:13px}
+    #btnVerify{height:46px;padding:0 20px;font-size:14px}
+    .entry-box{padding:8px 8px 8px 14px;border-radius:14px}
+    .entry-hint{font-size:10.5px}
+    .hide-sm{display:none}
+    .hide-sm-inline{display:none}
+    th,td{padding:10px 12px}
+    .lg-head{padding:12px 14px;gap:8px}
+    .lg-head .cnt{display:none}
+    .tabs button{padding:6px 10px;font-size:11px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+</style>
+</head>
+<body>
+
+<!-- 登录 -->
+<div class="login" id="loginView" hidden>
+  <form class="login-card" id="loginForm">
+    <div class="mark">星</div>
+    <h1>门岗核验终端</h1>
+    <p>请使用保安账号登录。登录后终端会保持会话，30 天内无需重复登录。</p>
+    <div class="field"><label>账号</label><input class="input" id="lgUser" autocomplete="username" placeholder="guard01" required></div>
+    <div class="field"><label>密码</label><input class="input" id="lgPass" type="password" autocomplete="current-password" placeholder="请输入密码" required></div>
+    <button class="btn primary" id="lgBtn" type="submit">登录终端</button>
+    <div class="err" id="lgErr"></div>
+    <div style="font-size:10.5px;color:var(--txt-3);text-align:center;margin-top:18px;line-height:1.9">
+      演示账号 guard01 / vp123456<br>管理端请访问 <a href="/" style="color:rgba(201,169,97,.8)">首页</a>
+    </div>
+  </form>
+</div>
+
+<!-- 终端 -->
+<div class="term" id="termView" hidden>
+  <div class="bar">
+    <div class="mark">星</div>
+    <div><b id="orgName">星河科技</b><small id="gateName">主闸机 · 保安终端</small></div>
+    <div class="right">
+      <div class="dot" id="netDot"></div>
+      <div class="who" id="whoLine">—</div>
+      <a class="ghost" href="/" id="toAdmin" style="display:none">管理端</a>
+      <button class="ghost" id="btnLogout">退出</button>
+    </div>
+  </div>
+
+  <!-- 第一行：输入 -->
+  <div class="entry">
+    <div class="entry-box">
+      <span class="ic">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+          <circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>
+        </svg>
+      </span>
+      <input id="scanInput" placeholder="扫描二维码，或输入邀请码后回车" autocomplete="off"
+             autocapitalize="characters" spellcheck="false" enterkeyhint="go" autofocus>
+      <button id="btnVerify">核 验</button>
+    </div>
+    <div class="entry-hint">
+      <span>扫码枪直接扫 · 手动输入邀请码</span>
+      <span class="spacer"></span>
+      <span class="clock" id="clock"></span>
+    </div>
+  </div>
+
+  <!-- 台账 -->
+  <div class="ledger">
+    <div class="lg-head">
+      <h2>今日台账</h2>
+      <span class="cnt" id="lgCount">已入场 <b>0</b> 人次 · 邀请 <b>0</b> 张</span>
+      <span class="spacer"></span>
+      <div class="tabs" id="lgTabs">
+        <button class="on" data-inc="">通行记录</button>
+        <button data-inc="deny">含拒绝</button>
+      </div>
+    </div>
+    <div class="lg-wrap" id="lgWrap">
+      <div class="empty">加载中…</div>
+    </div>
+  </div>
+</div>
+
+<div class="notice" id="notice">
+  <div class="notice-card">
+    <div class="notice-icon" id="nIcon">✓</div>
+    <div class="notice-body">
+      <div class="notice-title" id="nTitle">通过</div>
+      <div class="notice-name" id="nName"></div>
+      <div class="notice-desc" id="nDesc"></div>
+      <div class="notice-hint" id="nHint"></div>
+    </div>
+    <button class="notice-x" id="nClose" aria-label="关闭">✕</button>
+    <div class="notice-bar"><i id="nBar"></i></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var busy = false;
+  var ledgerTimer = null;
+  var includeDeny = '';
+  var lastTopTs = 0;
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function today() {
+    var d = new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+
+  function deviceId() {
+    var k = 'vp_device_id';
+    var id = localStorage.getItem(k);
+    if (!id) {
+      id = 'GD-01';
+      localStorage.setItem(k, id);
+    }
+    return id;
+  }
+  var DEVICE = deviceId();
+
+  function toast(text, ms) {
+    var el = $('toast');
+    el.textContent = text;
+    el.classList.add('on');
+    clearTimeout(el._t);
+    el._t = setTimeout(function () { el.classList.remove('on'); }, ms || 2400);
+  }
+
+  function api(path, opts) {
+    var conf = Object.assign({
+      headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'fetch' },
+      credentials: 'same-origin'
+    }, opts || {});
+    if (conf.body && typeof conf.body !== 'string') conf.body = JSON.stringify(conf.body);
+    return fetch(path, conf).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) {
+        if (!r.ok) {
+          var err = new Error(j.error || ('HTTP ' + r.status));
+          err.status = r.status;
+          throw err;
+        }
+        return j;
+      });
+    });
+  }
+
+  /* ---------------- 声音 ---------------- */
+  var audioCtx = null;
+  function beep(ok) {
+    try {
+      if (!audioCtx) {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        audioCtx = new AC();
+      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      var now = audioCtx.currentTime;
+      function tone(freq, start, dur, type, gainVal) {
+        var o = audioCtx.createOscillator();
+        var g = audioCtx.createGain();
+        o.type = type || 'sine';
+        o.frequency.value = freq;
+        g.gain.setValueAtTime(0, now + start);
+        g.gain.linearRampToValueAtTime(gainVal || 0.12, now + start + 0.012);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + start + dur);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(now + start); o.stop(now + start + dur + 0.02);
+      }
+      if (ok) { tone(880, 0, 0.1); tone(1320, 0.11, 0.14); }
+      else { tone(240, 0, 0.2, 'square', 0.1); tone(180, 0.22, 0.26, 'square', 0.1); }
+    } catch (e) { /* 静音失败无所谓 */ }
+  }
+
+  /* ---------------- 登录 ---------------- */
+  function showLogin() {
+    $('termView').hidden = true;
+    $('loginView').hidden = false;
+    document.body.style.overflow = '';
+    clearInterval(ledgerTimer);
+    setTimeout(function () { $('lgUser').focus(); }, 60);
+  }
+
+  function showTerm(user) {
+    $('loginView').hidden = true;
+    $('termView').hidden = false;
+    $('whoLine').textContent = user.name + ' · ' + user.roleName;
+    if (user.roleKey !== 'guard') $('toAdmin').style.display = '';
+    $('gateName').textContent = (user.deptName || '安保部') + ' · 保安终端 · ' + DEVICE;
+    document.body.style.overflow = '';
+    setTimeout(function () { $('scanInput').focus(); }, 80);
+    refreshLedger();
+    clearInterval(ledgerTimer);
+    ledgerTimer = setInterval(function () {
+      refreshLedger();
+      ping();
+    }, 15000);
+  }
+
+  $('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = $('lgBtn');
+    $('lgErr').textContent = '';
+    btn.disabled = true;
+    btn.textContent = '正在登录…';
+    api('/api/auth/login', {
+      method: 'POST',
+      body: { username: $('lgUser').value.trim(), password: $('lgPass').value, remember: true }
+    }).then(function () {
+      return api('/api/auth/me');
+    }).then(function (r) {
+      if (!hasPerm(r.user, 'guard.verify')) {
+        throw new Error('该账号没有门岗核验权限，请联系管理员分配「门岗保安」角色');
+      }
+      showTerm(r.user);
+    }).catch(function (err) {
+      $('lgErr').textContent = err.message;
+    }).then(function () {
+      btn.disabled = false;
+      btn.textContent = '登录终端';
+    });
+  });
+
+  function hasPerm(user, perm) {
+    if (!user || !user.perms) return false;
+    return user.perms.indexOf('*') >= 0 || user.perms.indexOf(perm) >= 0;
+  }
+
+  $('btnLogout').addEventListener('click', function () {
+    api('/api/auth/logout', { method: 'POST' }).catch(function () {}).then(function () {
+      showLogin();
+    });
+  });
+
+  /* ---------------- 核验 ---------------- */
+  var input = $('scanInput');
+
+  function submit() {
+    var query = input.value.trim();
+    noticeHide();
+    if (busy) return;
+    if (!query) { toast('请先扫描或输入邀请码'); input.focus(); return; }
+    busy = true;
+    $('btnVerify').disabled = true;
+    input.disabled = true;
+
+    api('/api/verify', { method: 'POST', body: { input: query, deviceId: DEVICE } })
+      .then(function (data) {
+        if (data.pass) showPass(data);
+        else showDeny(data);
+        refreshLedger();
+      })
+      .catch(function (err) {
+        busy = false;
+        $('btnVerify').disabled = false;
+        input.disabled = false;
+        if (err.status === 401) { showLogin(); return; }
+        toast(err.message || '网络异常，请重试', 3600);
+        input.focus();
+      });
+  }
+
+  function clearInput() {
+    input.value = '';
+    input.disabled = false;
+    $('btnVerify').disabled = false;
+    busy = false;
+    input.focus();
+  }
+
+  /* ---------------- 核验提醒（浮动卡片，不遮挡全屏） ---------------- */
+  var noticeTimer = null;
+
+  function noticeHide() {
+    clearTimeout(noticeTimer);
+    noticeTimer = null;
+    $('notice').classList.remove('on');
+  }
+
+  function showNotice(kind, opt) {
+    var el = $('notice');
+    el.className = 'notice ' + kind + ' on';
+    $('nIcon').textContent = kind === 'pass' ? '✓' : '✕';
+    $('nTitle').textContent = opt.title || '';
+    $('nName').textContent = opt.name || '';
+    $('nName').style.display = opt.name ? '' : 'none';
+    $('nDesc').textContent = opt.desc || '';
+    $('nDesc').style.display = opt.desc ? '' : 'none';
+    $('nHint').textContent = opt.hint || '';
+    $('nHint').style.display = opt.hint ? '' : 'none';
+
+    var bar = $('nBar');
+    bar.style.animation = 'none';
+    void bar.offsetWidth;
+    bar.style.animation = 'noticeShrink ' + (opt.ms || 3000) + 'ms linear forwards';
+
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(noticeHide, opt.ms || 3000);
+  }
+
+  function showPass(data) {
+    var c = data.credential || {};
+    var bits = [];
+    if (data.kind === 'reentry') bits.push('复入放行');
+    else if (data.kind === 'dup') bits.push('重复扫描');
+    else bits.push('首次入场');
+    if (c.company) bits.push(c.company);
+    if (c.roomName) bits.push(c.roomName);
+    bits.push('名额 ' + (c.usedCount || 0) + '/' + (c.quota || 1));
+    clearInput();
+    showNotice('pass', { title: '通过', name: c.guestName || '', desc: bits.join(' · '), ms: 2400 });
+    beep(true);
+  }
+
+  function showDeny(data) {
+    clearInput();
+    showNotice('deny', {
+      title: data.word || '未通过',
+      name: (data.credential && data.credential.guestName) || '',
+      desc: data.reason || '',
+      hint: data.suggestion || '',
+      ms: 6000
+    });
+    beep(false);
+  }
+
+  $('notice').addEventListener('click', function () {
+    noticeHide();
+    input.focus();
+  });
+
+  $('btnVerify').addEventListener('click', submit);
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      submit();
+      return;
+    }
+    /* 有的扫码枪不发回车：读到完整凭证号直接提交 */
+    if (/^SL\d{4}[A-Z0-9]{6}$/i.test(input.value)) {
+      setTimeout(function () {
+        if (/^SL\d{4}[A-Z0-9]{6}$/i.test(input.value)) submit();
+      }, 90);
+    }
+  });
+
+  /* 页面任何位置敲键都自动聚焦到输入框，保安不用先点一下 */
+  document.addEventListener('keydown', function (e) {
+    if ($('termView').hidden) return;
+    if (document.activeElement === input) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key.length === 1 || e.key === 'Enter') input.focus();
+  });
+
+  /* ---------------- 台账 ---------------- */
+  function refreshLedger() {
+    api('/api/ledger?date=' + today() + (includeDeny ? '&include=deny' : ''))
+      .then(function (data) {
+        $('netDot').classList.remove('off');
+        renderLedger(data);
+      })
+      .catch(function (err) {
+        $('netDot').classList.add('off');
+        if (err.status === 401) showLogin();
+        else {
+          $('lgWrap').innerHTML = '<div class="empty"><b>台账加载失败</b>' + escapeHtml(err.message) + '</div>';
+        }
+      });
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function renderLedger(data) {
+    var s = data.summary || {};
+    $('lgCount').innerHTML = '已入场 <b>' + (s.people || 0) + '</b> 人次 · 邀请 <b>' + (s.invites || 0) + '</b> 张';
+    var rows = data.rows || [];
+    if (!rows.length) {
+      $('lgWrap').innerHTML = '<div class="empty"><b>今天还没有通行记录</b>门岗核验通过后会自动出现在这里</div>';
+      return;
+    }
+    var topTs = rows[0].ts || 0;
+    var isNew = lastTopTs && topTs > lastTopTs;
+
+    var html = '<table><thead><tr>' +
+      '<th style="width:86px">时间</th>' +
+      '<th style="width:170px">访客</th>' +
+      '<th class="hide-sm">来访事由</th>' +
+      '<th class="hide-sm">邀请人</th>' +
+      '<th class="hide-sm">会议室</th>' +
+      '<th style="width:96px">类型</th>' +
+      '</tr></thead><tbody>';
+
+    rows.forEach(function (r, i) {
+      var cls = r.pass ? (r.kind === 'first' ? 'in' : (r.kind === 'reentry' ? 're' : 'dup')) : 'deny';
+      html += '<tr' + (i === 0 && isNew ? ' class="fresh"' : '') + '>' +
+        '<td class="t">' + escapeHtml(r.time) + '</td>' +
+        '<td><div class="n">' + escapeHtml(r.guestName || '未知') + '</div>' +
+          '<div class="sub">' + escapeHtml(r.company || '—') + '</div></td>' +
+        '<td class="hide-sm" style="font-size:12px">' + escapeHtml(r.reason || '—') + '</td>' +
+        '<td class="hide-sm" style="font-size:12px">' + escapeHtml(r.hostName || '—') + '</td>' +
+        '<td class="hide-sm" style="font-size:12px">' + escapeHtml(r.roomName || '—') + '</td>' +
+        '<td><span class="badge ' + cls + '">' + escapeHtml(r.kindText) + '</span></td>' +
+        '</tr>';
+    });
+    html += '</tbody></table>';
+    $('lgWrap').innerHTML = html;
+    lastTopTs = topTs;
+  }
+
+  document.getElementById('lgTabs').addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (!btn) return;
+    Array.prototype.forEach.call(this.querySelectorAll('button'), function (b) { b.classList.remove('on'); });
+    btn.classList.add('on');
+    includeDeny = btn.dataset.inc;
+    refreshLedger();
+  });
+
+  /* ---------------- 状态 ---------------- */
+  function ping() {
+    fetch('/api/health', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function () { $('netDot').classList.remove('off'); })
+      .catch(function () { $('netDot').classList.add('off'); });
+  }
+
+  function clock() {
+    var d = new Date();
+    var w = ['日', '一', '二', '三', '四', '五', '六'][d.getDay()];
+    $('clock').textContent = (d.getMonth() + 1) + '月' + d.getDate() + '日 周' + w + ' ' +
+      pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+  setInterval(clock, 1000);
+  clock();
+
+  /* ---------------- 启动 ---------------- */
+  api('/api/auth/me')
+    .then(function (r) {
+      if (!hasPerm(r.user, 'guard.verify')) {
+        showLogin();
+        $('lgErr').textContent = r.user ? '当前账号没有门岗核验权限' : '';
+        return;
+      }
+      showTerm(r.user);
+    })
+    .catch(function () { showLogin(); });
+
+  window.addEventListener('focus', function () {
+    if (!$('termView').hidden && !busy) input.focus();
+  });
+})();
+</script>
+</body>
+</html>

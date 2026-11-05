@@ -1,0 +1,27 @@
+{
+  "name": "visitor-pass",
+  "version": "2.0.0",
+  "description": "不是审批，是邀请。零依赖、可离线运行的访客邀请与门岗核验系统",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check lib/store.js && node --check lib/auth.js && node --check lib/org.js && node --check lib/rooms.js && node --check lib/invite.js && node --check lib/audit.js && node --check lib/seed.js && node --check public/assets/app.js"
+  },
+  "keywords": [
+    "visitor-management",
+    "visitor-pass",
+    "invitation",
+    "nodejs",
+    "zero-dependency",
+    "offline-first",
+    "self-hosted",
+    "qrcode",
+    "access-control"
+  ],
+  "author": "",
+  "license": "AGPL-3.0-or-later",
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {}
+}
