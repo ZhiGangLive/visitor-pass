@@ -62,7 +62,7 @@ Full essay: [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md) (Chinese).
 ## Quick start
 
 ```bash
-git clone https://github.com/ZhiGangLive/visitor-pass.git
+git clone https://github.com/bulusiLive/visitor-pass.git
 cd visitor-pass
 node server.js
 ```

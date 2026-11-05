@@ -52,7 +52,7 @@
 - 没接闸机/人脸，纯「人看屏幕 + 系统判定」
 - 单进程，设计上限是一栋楼、日均几百访客
 
-地址：https://github.com/ZhiGangLive/visitor-pass
+地址：https://github.com/bulusiLive/visitor-pass
 协议 AGPL-3.0（不想让人拿去做闭源 SaaS 把「数据留在客户手里」这个前提抹掉）。
 
 想听听做过园区、写字楼、工厂项目的朋友的意见：
@@ -117,7 +117,7 @@
 零依赖之后，部署变成三条命令：
 
 ```bash
-git clone https://github.com/ZhiGangLive/visitor-pass.git
+git clone https://github.com/bulusiLive/visitor-pass.git
 cd visitor-pass
 node server.js
 ```
@@ -197,7 +197,7 @@ AGPL 保证改动必须回流。同时留了商业授权的口子，给需要闭
 
 ## 最后
 
-仓库：https://github.com/ZhiGangLive/visitor-pass
+仓库：https://github.com/bulusiLive/visitor-pass
 
 如果你也在做类似的东西，欢迎交流。特别想听两类反馈：
 真实场景的边界情况，以及门岗端的可用性问题。
@@ -250,7 +250,7 @@ AGPL 保证改动必须回流。同时留了商业授权的口子，给需要闭
 技术上它是零依赖的，一个 JSON 文件装下所有数据，断网也能跑，
 所以特别适合三类场景：不许上云的单位、网络不稳的厂房、没有 IT 的老写字楼。
 
-https://github.com/ZhiGangLive/visitor-pass
+https://github.com/bulusiLive/visitor-pass
 
 当然它也有明确的边界：不接闸机、不做人脸、单进程，
 不适合日均上千人的大型园区。选型没有银弹，看你更在意「体面」还是「管控」。
@@ -361,7 +361,7 @@ https://github.com/ZhiGangLive/visitor-pass
 
 ## 六、代码在这里
 
-github.com/ZhiGangLive/visitor-pass
+github.com/bulusiLive/visitor-pass
 
 零依赖，Node 16+ 直接跑，断网可用，AGPL 开源。
 
@@ -441,7 +441,7 @@ Node 16+，零依赖，双击就跑
 不是审批，是邀请：员工发一张邀请卡，微信直接转发；访客不用装 App、不用填表；
 门岗扫码 2 秒放行，台账自动生成。Node 16+，双击即跑，无 npm 依赖、无数据库、断网可用。
 
-代码：https://github.com/ZhiGangLive/visitor-pass
+代码：https://github.com/bulusiLive/visitor-pass
 协议：AGPL-3.0
 
 00:00 你邀请我来，还是叫我过来
@@ -496,7 +496,7 @@ Node 16+，零依赖，双击就跑
 **评论区置顶**
 
 ```
-仓库在这：github.com/ZhiGangLive/visitor-pass
+仓库在这：github.com/bulusiLive/visitor-pass
 零依赖，node server.js 就能跑，不需要 npm install。
 已知限制都写在 README 里，欢迎拍砖。
 ```

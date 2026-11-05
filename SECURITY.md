@@ -5,7 +5,7 @@
 **不要开公开 issue。** 请通过以下方式私下联系维护者：
 
 - 首选：GitHub 仓库的 **Security → Report a vulnerability**（私密，只有维护者可见）
-  直达链接：<https://github.com/ZhiGangLive/visitor-pass/security/advisories/new>
+  直达链接：<https://github.com/bulusiLive/visitor-pass/security/advisories/new>
 - 或开一个 Issue，只写「有安全问题，需要私下联系」，**不要在 Issue 里写细节**
 
 请在报告里包含：影响版本、复现步骤、影响范围、可能的修复方向。我们会在 72 小时内确认收到，并在修复发布后致谢（如果你愿意署名）。

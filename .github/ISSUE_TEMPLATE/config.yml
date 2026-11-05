@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: 部署与使用问题
-    url: https://github.com/ZhiGangLive/visitor-pass/blob/main/docs/DEPLOY.md
+    url: https://github.com/bulusiLive/visitor-pass/blob/main/docs/DEPLOY.md
     about: 端口、防火墙、HTTPS、Windows 服务、数据备份，先看部署指南
   - name: 安全漏洞
-    url: https://github.com/ZhiGangLive/visitor-pass/blob/main/SECURITY.md
+    url: https://github.com/bulusiLive/visitor-pass/blob/main/SECURITY.md
     about: 请不要公开提交 issue，按 SECURITY.md 私下报告

@@ -101,7 +101,7 @@
 已知短板也写在 README 里：4 位邀请码理论可猜、复入放行默认开、
 没接闸机硬件、单进程。
 
-https://github.com/ZhiGangLive/visitor-pass
+https://github.com/bulusiLive/visitor-pass
 
 想听听做过园区/写字楼项目的朋友的意见：这个方向有没有真实需求？
 ```
@@ -253,7 +253,7 @@ https://github.com/ZhiGangLive/visitor-pass
 ## 六、发布前检查
 
 - [ ] 仓库里没有 `data/`（真实访客数据）
-- [x] 仓库地址已写死为 `ZhiGangLive/visitor-pass`（fork 或迁移时记得全局替换）
+- [x] 仓库地址已写死为 `bulusiLive/visitor-pass`（fork 或迁移时记得全局替换）
 - [ ] `SECURITY.md` / `COMMERCIAL.md` 里的邮箱换成真实邮箱
 - [ ] `NOTICE` 里的版权持有人填好
 - [ ] 截图里没有真实公司名、真实姓名、真实手机号（当前为虚构演示数据）

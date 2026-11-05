@@ -28,7 +28,7 @@
 ## 联系方式
 
 - 在仓库开一个标题为 `[商业授权]` 的 Issue（不用写敏感信息），维护者会私信联系
-- 或通过 GitHub 私信 [@ZhiGangLive](https://github.com/ZhiGangLive)
+- 或通过 GitHub 私信 [@bulusiLive](https://github.com/bulusiLive)
 - 请说明：使用场景、部署规模、是否需要闭源、期望交付时间
 
 > 说明：AGPL 允许你不用付费就用于内部自用（包括公司内部部署给自己员工使用）。**只有当你把修改后的版本作为服务提供给第三方，或需要闭源分发时，才需要商业授权。**

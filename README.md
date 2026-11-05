@@ -7,7 +7,7 @@
 一个零依赖、可离线运行的访客邀请与门岗核验系统。
 Node 16+，`node server.js` 就能跑，不需要 `npm install`，不需要数据库，不需要联网。
 
-[![CI](https://github.com/ZhiGangLive/visitor-pass/actions/workflows/ci.yml/badge.svg)](https://github.com/ZhiGangLive/visitor-pass/actions/workflows/ci.yml)
+[![CI](https://github.com/bulusiLive/visitor-pass/actions/workflows/ci.yml/badge.svg)](https://github.com/bulusiLive/visitor-pass/actions/workflows/ci.yml)
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A5%2016-brightgreen.svg)](https://nodejs.org)
 [![Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)](#技术架构)
@@ -87,7 +87,7 @@ Node 16+，`node server.js` 就能跑，不需要 `npm install`，不需要数�
 **macOS / Linux / 任意平台：**
 
 ```bash
-git clone https://github.com/ZhiGangLive/visitor-pass.git
+git clone https://github.com/bulusiLive/visitor-pass.git
 cd visitor-pass
 node server.js
 ```
